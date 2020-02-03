@@ -48,7 +48,6 @@ const getCommonStudents = async (req, res) => {
     const results = await query(conn, q, [teachers])
     res.status(200).json({ status:200, error: null, commonStudents: results });
   } catch (error) {
-    console.log(error)
     res.status(500).json({ status: 500, message: error.message, response: 'Query error!' })
   }
 }
@@ -57,6 +56,8 @@ const registerStudents = async (req, res) => {
   try {
     const teacher = req.body.teacher
     const student = req.body.student
+    console.log("req.body")
+    console.log(req.body)
     if (!teacher || !student) res.json({ status: 500, error: true, response: 'Select all fields!'})
     let registrations = Array.isArray(student) ? student.map(s => [teacher, s] ) : [[teacher,student]]
     const conn = await connection(dbConfig)
