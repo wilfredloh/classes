@@ -1,0 +1,122 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Classes API</title>
+</head>
+<body>
+    <!--------------------------- TEACHER SEGMENT ------------------------>
+    <h2>Teachers</h2>
+    <a href="/api/teachers">JSON</a>
+    <table>
+        <tr>
+            <% ['Name', 'Email'].map(x=> { %>
+                <td> <%= x %> </td>
+            <% }) %>
+        </tr>
+        <%log.teachers.map(x => { %>
+            <% const teacherName = x.email.split('@')[0].replace(/^\w/, c => c.toUpperCase()) %>
+            <tr>
+                <td><%= teacherName %></td>
+                <td><%= x.email %></td>
+            </tr>
+        <% }) %>
+    </table>
+
+    <!--------------------------- STUDENT SEGMENT ------------------------>
+    <h2>Students</h2>
+    <a href="/api/students">JSON</a>
+    <table>
+        <tr>
+            <% ['Name', 'Email', 'Suspended'].map(x=> { %>
+                <td> <%= x %> </td>
+            <% }) %>
+        </tr>
+        <%log.students.map(x => { %>
+            <% const studentName = x.email.split('@')[0].replace(/^\w/, c => c.toUpperCase()) %>
+            <% const suspended = x.suspended ? 'True' : 'False' %>
+            <tr>
+                <td><%= studentName %></td>
+                <td><%= x.email %></td>
+                <td><%= suspended %></td>
+            </tr>
+        <% }) %>
+    </table>
+
+    <!--------------------------- REGISTRATION SEGMENT ------------------------>
+    <h2>Registrations</h2>
+    <a href="/api/registrations">JSON</a>
+    <table>
+        <tr>
+            <% ['Teacher ID', 'Student ID'].map(x=> { %>
+                <td> <%= x %> </td>
+            <% }) %>
+        </tr>
+        <%log.registrations.map(x => { %>
+            <tr>
+                <td><%= x.teacher_id %></td>
+                <td><%= x.student_id %></td>
+            </tr>
+        <% }) %>
+    </table>
+
+    <!--------------------------- QUESTION 1 ------------------------>
+    <h2>1. Register student(s)</h2>
+        <form action="/api/register" method="POST">
+            <p>Teacher:</p>
+            <select name="teacher" >
+                <option hidden disabled selected value> -- select an option -- </option>
+                <%log.teachers.map(x => { %>
+                    <% const teacherName = x.email.split('@')[0].replace(/^\w/, c => c.toUpperCase()) %>
+                    <option value=<%=x.id%>><%= teacherName %></option>
+                <% }) %>
+            </select>
+            <p>Students:</p>
+            <%log.students.map(x => { %>
+                <% const studentName = x.email.split('@')[0].replace(/^\w/, c => c.toUpperCase()) %>
+                <input type="checkbox" name="student" value=<%=x.id%>><%= studentName %>
+            <% }) %>
+            <br>
+            <br>
+            <input type="submit">
+        </form>
+
+    <!--------------------------- QUESTION 2 ------------------------>
+    <h2>2. Retrieve a list of students from selected teachers</h2>
+        <form action="/api/commonstudents" method="GET">
+            <%log.teachers.map(x => { %>
+                <% const teacherName = x.email.split('@')[0].replace(/^\w/, c => c.toUpperCase()) %>
+                <input type="checkbox" name="teacher" value=<%=x.email%>><%= teacherName %>
+            <% }) %>
+            <input type="submit">
+        </form>
+
+    <!--------------------------- QUESTION 3 ------------------------>
+    <h2>3. Suspend a student</h2>
+        <form action="/api/suspend" method="POST">
+            <select name="student" >
+                <option hidden disabled selected value> -- select an option -- </option>
+                <%log.students.map(x => { %>
+                    <% const studentName = x.email.split('@')[0].replace(/^\w/, c => c.toUpperCase()) %>
+                    <option value=<%=x.id%>><%= studentName %></option>
+                <% }) %>
+            </select>
+            <input type="submit">
+        </form>
+
+    <!--------------------------- QUESTION 4 ------------------------>
+    <h2>4. Check notified students</h2>
+        <form action="/api/retrievefornotifications" method="POST">
+            Teacher: <select name="teacher" >
+                <option hidden disabled selected value> -- select an option -- </option>
+                <%log.teachers.map(x => { %>
+                    <% const teacherName = x.email.split('@')[0].replace(/^\w/, c => c.toUpperCase()) %>
+                    <option value=<%=x.email%>><%= teacherName %></option>
+                <% }) %>
+            </select>
+            <p>Notification: <input name="notification">
+            <input type="submit"></p>
+        </form>
+</body>
+</html>
