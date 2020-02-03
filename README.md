@@ -9,7 +9,7 @@ This repo contains a set of API endpoints for teachers to perform administrative
 - Jest
 - Heroku
 
-[ERD Diagram](https://drive.google.com/open?id=1mS3oh0jp8__HuekYvfNVi55kpMCjqZd3)
+[ERD Diagram](ERD.pdf)
 
 ### To run this project:
 ```
