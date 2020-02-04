@@ -12,15 +12,14 @@ This repo contains a set of API endpoints for teachers to perform administrative
 
 ERD Diagram: [Link](ERD.pdf)
 
-## Pre-requisites to install: 
+## Pre-requisites 
 - Node.js
 ```
 brew install node
 ```
 - MySQL: [Link](https://dev.mysql.com/downloads/mysql/) (using legacy password encryption)
 
-```
-
+## Instructions to install project
 Next, install the project dependencies
 ```
 npm install
