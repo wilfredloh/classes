@@ -3,21 +3,36 @@ const query = require('../helpers/query');
 const seed = require('../db/data.js')
 
 const getTeachers = async () => {
-    const conn = await connection()
-    const results = await query(conn, 'SELECT * FROM teachers')
-    return results
+    try{
+        const conn = await connection()
+        const results = await query(conn, 'SELECT * FROM teachers')
+        return results
+    } catch (error) {
+        console.log('Error in Models, getTeachers()', error.message)
+        return error
+    }
 }
 
 const getStudents = async () => {
-    const conn = await connection()
-    const results = await query(conn, 'SELECT * FROM students')
-    return results
+    try{
+        const conn = await connection()
+        const results = await query(conn, 'SELECT * FROM students')
+        return results
+    } catch (error) {
+        console.log('Error in Models, getStudents()', error.message)
+        return error
+    }
 }
 
 const getRegistrations = async () => {
-    const conn = await connection()
-    const results = await query(conn, 'SELECT * FROM registrations')
-    return results
+    try{
+        const conn = await connection()
+        const results = await query(conn, 'SELECT * FROM registrations')
+        return results
+    } catch (error) {
+        console.log('Error in Models, getRegistrations()', error.message)
+        return error
+    }
 }
 
 const getCommonStudents = async (teachers) => {
@@ -34,6 +49,7 @@ const getCommonStudents = async (teachers) => {
       const results = await query(conn, q, [teachers])
       return results
     } catch (error) {
+        console.log('Error in Models, getCommonStudents()', error.message)
         return error
     }
   }
@@ -45,6 +61,7 @@ const registerStudents = async (registrations) => {
         const results = await query(conn, sql, [registrations])
         return results
     } catch (error) {
+        console.log('Error in Models, registerStudents()', error.message)
         return error
     }
 }
@@ -54,8 +71,10 @@ const suspendStudent = async (studentID) => {
       // refactor to say already suspended
       const conn = await connection()
       const results = await query(conn, `UPDATE students SET suspended=true WHERE id = ?;`, [studentID])
+      console.log(results)
       return results
     } catch (error) {
+        console.log('Error in Models, suspendStudent()', error.message)
         return error
     }
   }

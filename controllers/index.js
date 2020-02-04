@@ -1,12 +1,12 @@
-const models = require('../models/models')
+const models = require('../models')
 const codes = require('../config/config')
 
 const getTeachers = async (req, res) => {
   try {
     const results = await models.getTeachers()
-    res.status(codes.ok).json({ statlus: codes.ok, error: null, teachers: results });
+    res.status(codes.ok).json({ status: codes.ok, teachers: results });
   } catch (error) {
-    res.status(codes.serverError).json({ status: codes.serverError, message: error.message, response: 'Query error!' })
+    res.status(codes.serverError).json({ status: codes.serverError, message: 'Could not get data' })
   }
 }
   
