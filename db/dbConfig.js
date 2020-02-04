@@ -1,9 +1,10 @@
+require('dotenv').config()
 
 const development = {
-    host: process.env.DB_HOST || 'localhost',
-    user: process.env.DB_USER || 'wloh',
-    password: process.env.DB_PASS || 'banana123',
-    database: process.env.DB_DATABASE || 'classes',
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_DATABASE,
 }
 
 module.exports = development

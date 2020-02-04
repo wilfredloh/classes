@@ -3,7 +3,7 @@ const app = require('../index')
 
 const connection = require('../helpers/connection');
 const query = require('../helpers/query');
-const seed = require('../data.js')
+const seed = require('../db/data.js')
 
 afterAll(async done => {
     const conn = await connection()

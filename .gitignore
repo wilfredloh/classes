@@ -1,3 +1,4 @@
 node_modules
 FAQ.md
 db/data.sql
+.env
