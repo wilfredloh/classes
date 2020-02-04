@@ -67,7 +67,7 @@ describe('Common Student endpoint', () => {
         const res = await request(app).get(apiString)
         expect(res.statusCode).toEqual(200)
         expect(res.body).toHaveProperty('commonStudents')
-        expect(res.body.commonStudents.length).toEqual(0)
+        expect(res.body.commonStudents).toEqual('No common students')
     });
 })
 

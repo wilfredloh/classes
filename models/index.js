@@ -1,37 +1,35 @@
 const connection = require('../helpers/connection');
 const query = require('../helpers/query');
-const seed = require('../db/data.js')
+const seed = require('../db/data')
+const { logErrorMessageModel } = require('../helpers/validation')
 
 const getTeachers = async () => {
     try{
         const conn = await connection()
-        const results = await query(conn, 'SELECT * FROM teachers')
-        return results
+        return await query(conn, 'SELECT * FROM teachers')
     } catch (error) {
-        console.log('Error in Models, getTeachers()', error.message)
-        return error
+        logErrorMessageModel('getTeachers', error)
+        throw error
     }
 }
 
 const getStudents = async () => {
     try{
         const conn = await connection()
-        const results = await query(conn, 'SELECT * FROM students')
-        return results
+        return await query(conn, 'SELECT * FROM students')
     } catch (error) {
-        console.log('Error in Models, getStudents()', error.message)
-        return error
+        logErrorMessageModel('getStudents', error)
+        throw error
     }
 }
 
 const getRegistrations = async () => {
     try{
         const conn = await connection()
-        const results = await query(conn, 'SELECT * FROM registrations')
-        return results
+        return await query(conn, 'SELECT * FROM registrations')
     } catch (error) {
-        console.log('Error in Models, getRegistrations()', error.message)
-        return error
+        logErrorMessageModel('getRegistrations', error)
+        throw error
     }
 }
 
@@ -46,43 +44,53 @@ const getCommonStudents = async (teachers) => {
         q = q.replace(/,/g, "")
       } else q = `${sql} "${teachers}"`
       const conn = await connection() 
-      const results = await query(conn, q, [teachers])
-      return results
+      return await query(conn, q, [teachers])
     } catch (error) {
-        console.log('Error in Models, getCommonStudents()', error.message)
-        return error
+        logErrorMessageModel('getCommonStudents', error)
+        throw error
     }
-  }
+}
 
 const registerStudents = async (registrations) => {
     try {
         const conn = await connection()
         let sql = `INSERT INTO registrations (teacher_id, student_id) VALUES ?`
-        const results = await query(conn, sql, [registrations])
-        return results
+        return await query(conn, sql, [registrations])
     } catch (error) {
-        console.log('Error in Models, registerStudents()', error.message)
-        return error
+        logErrorMessageModel('registerStudents', error)
+        throw error
     }
 }
 
 const suspendStudent = async (studentID) => {
     try {
-      // refactor to say already suspended
       const conn = await connection()
-      const results = await query(conn, `UPDATE students SET suspended=true WHERE id = ?;`, [studentID])
-      console.log(results)
-      return results
+      return await query(conn, `UPDATE students SET suspended=true WHERE id = ?;`, [studentID])
     } catch (error) {
-        console.log('Error in Models, suspendStudent()', error.message)
-        return error
+        logErrorMessageModel('suspendStudent', error)
+        throw error
     }
-  }
+}
 
 const getTeacherIDFromEmail = async(email) => {
-    const conn = await connection()
-    const teacherIDResult = await query(conn, `SELECT id FROM teachers WHERE email = (?)`,[email])
-    return teacherIDResult
+    try {
+        const conn = await connection()
+        return await query(conn, `SELECT id FROM teachers WHERE email = (?)`,[email])
+    } catch (error) {
+        logErrorMessageModel('getTeacherIDFromEmail', error)
+        throw error
+    }
+}
+
+const getValidTeacherEmails = async(teachers) => {
+    try {
+        const conn = await connection()
+        let sql = `SELECT email FROM teachers WHERE email in (?)`
+        return await query(conn, sql,[teachers])
+    } catch (error) {
+        logErrorMessageModel('getValidTeacherEmails', error)
+        throw error
+    }
 }
 
 const notifyStudents = async (teacherID, students, suspended) => {
@@ -101,7 +109,8 @@ const notifyStudents = async (teacherID, students, suspended) => {
         WHERE suspended = false AND email IN (?);`
         ,[teacherID, suspended, students])
     } catch (error) {
-        return error
+        logErrorMessageModel('notifyStudents', error)
+        throw error
     }
 } 
 
@@ -113,15 +122,16 @@ const refreshDatabase = async () => {
         })
         return
       } catch (error) {
-          return error
+        logErrorMessageModel('refreshDatabase', error)
+        throw error
       }
 }
-
 
 module.exports = {
     getTeachers,
     getStudents,
     getTeacherIDFromEmail,
+    getValidTeacherEmails,
     getRegistrations,
     getCommonStudents,
     registerStudents,
@@ -129,3 +139,4 @@ module.exports = {
     notifyStudents,
     refreshDatabase,
 }
+
