@@ -30,6 +30,7 @@ app.use(function (req, res, next) {
   next()
 })
 
+app.get('/', (req, res) => res.send('App is online!'))
 app.get('*', (req, res) => res.render('lost'))
 app.listen(PORT, () => console.log(`Server is live at localhost:${PORT}`));
 
