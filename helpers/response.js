@@ -1,3 +1,5 @@
+const { serverError, invalidInput } = require('../config/config')
+
 const runInvalidInputResponse = (res) => {
     res.status(invalidInput.num).json({ status: invalidInput.num, response: invalidInput.message1})
   }

@@ -90,7 +90,7 @@ const registerStudents = async (req, res) => {
 const suspendStudent = async (req, res) => {
   try {
     const studentID = req.body.student
-    if (!studentID) return runInvalidInputResponse(res)
+    if (!studentID) { runInvalidInputResponse(res); return }
     await models.suspendStudent(studentID)
     res.status(noContent.num).json({ status:noContent.num, response: 'Student suspended!' })
     return
@@ -103,7 +103,7 @@ const suspendStudent = async (req, res) => {
 const notifyStudents = async (req, res) => {
   try {
     const request = { teacher: req.body.teacher, notification: req.body.notification }
-    if (!req.body.teacher) { res.json({ status: serverError.num, error: error.message, response: 'Select a teacher!'}); return }
+    if (!req.body.teacher) { runInvalidInputResponse(res); return }
     const teacherIDResult = await models.getTeacherIDFromEmail(req.body.teacher)
     if (!teacherIDResult) { res.json({ status:serverError.num, error: null, response: 'Teacher ID query error!' }); return } 
     const teacherID = teacherIDResult[0].id
@@ -120,6 +120,47 @@ const notifyStudents = async (req, res) => {
 } 
 
 const showHome = async (req, res) => {
+    const data = [
+      {
+        title: 'Teachers',
+        link: '/api/teachers',
+        desc: 'GET'
+      },
+      {
+        title: 'Students',
+        link: '/api/students',
+        desc: 'GET'
+      },
+      {
+        title: 'Registrations',
+        link: '/api/registrations',
+        desc: 'GET'
+      },
+      {
+        title: 'Common students',
+        link: '/api/commonstudents',
+        desc: 'GET'
+      },
+      {
+        title: 'Register',
+        link: '/api/register',
+        desc: 'POST'
+      },
+      {
+        title: 'Suspend',
+        link: '/api/suspend',
+        desc: 'POST'
+      },
+      {
+        title: 'Notifications',
+        link: '/api/retrievefornotifications',
+        desc: 'POST'
+      },
+    ]
+    res.render('api', {data})
+}
+
+const showTestPage = async (req, res) => {
   try {
     const log = { teachers: '', students: '', registrations: '' }
     const teachers = await models.getTeachers()
@@ -153,6 +194,7 @@ module.exports = {
   suspendStudent,
   notifyStudents,
   showHome,
+  showTestPage,
   refresh,
 }
 

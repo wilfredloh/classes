@@ -13,6 +13,7 @@ router.post('/retrievefornotifications', controllers.notifyStudents)
 
 router.post('/refresh', controllers.refresh)
 
+router.get('/test', controllers.showTestPage)
 router.get('/', controllers.showHome)
 
 module.exports = router;

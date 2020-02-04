@@ -1,0 +1,20 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Welcome to the Classes API Endpoint</h1>
+    <p>Below are all available endpoints:</p>
+    <ul>
+        <% data.map(x => { %>
+            <li><%= x.desc %>: <a href= <%=x.link%> > <%=x.link%> </a> - <%=x.title%> </li>
+        <% }) %>
+    </ul>
+    <p>To test and manipulate data from the browser, click here:
+        <a href='/api/test'>Test Page</a>
+    </p>
+</body>
+</html>

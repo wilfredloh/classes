@@ -12,11 +12,37 @@ This repo contains a set of API endpoints for teachers to perform administrative
 
 ERD Diagram: [Link](ERD.pdf)
 
-### To run this project:
+## Pre-requisites to install: 
+- Node.js
+```
+brew install node
+```
+- MySQL: [Link](https://dev.mysql.com/downloads/mysql/) (using legacy password encryption)
+
+```
+
+Next, install the project dependencies
 ```
 npm install
 ```
-###### To run tests
+To run mysql command on the Terminal (Mac), add to .profile or .bash_profile
+```
+export PATH=$PATH:/usr/local/mysql/bin
+```
+To access MySQL data from the terminal
+```
+mysql -uroot -p
+```
+Configure details in db > dbconfig.js 
+Seed data in db > data.sql
+To start server, run: 
+```
+npm start
+```
+API endpoints listed in routes > index.js
+To view and manipulate data from the browser, go to: http://localhost:3000/api 
+
+For unit tests, run: 
 ```
 npm test
 ```

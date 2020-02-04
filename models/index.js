@@ -117,8 +117,8 @@ const notifyStudents = async (teacherID, students, suspended) => {
 const refreshDatabase = async () => {
     try {
         const conn = await connection()
-        seed.forEach( async x => {
-            await query(conn, x)
+        seed.forEach( async sqlQuery => {
+            await query(conn, sqlQuery)
         })
         return
       } catch (error) {
