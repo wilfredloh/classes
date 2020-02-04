@@ -1,6 +1,6 @@
 const connection = require('../helpers/connection');
 const query = require('../helpers/query');
-const seed = require('../data.js')
+const seed = require('../db/data.js')
 
 const getTeachers = async () => {
     const conn = await connection()

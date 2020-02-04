@@ -1,4 +1,4 @@
-const dbConfig = require('../dbConfig'); //↑ exports = {user, password, host, databse}
+const dbConfig = require('../db/dbConfig'); //↑ exports = {user, password, host, databse}
 const mysql = require('mysql');
 
 module.exports = async (params = dbConfig) => new Promise(

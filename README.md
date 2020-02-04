@@ -24,8 +24,9 @@ npm test
 <!-- 1. do MVC structure - separate business logic (models, controllers) -->
 <!-- 2. supertest closing  -->
 <!-- 3. drop add data start and finish of each test -->
-4. validation checks on request body
-5. constant files (status codes)
-6. helper files (validation.js)
-7. split controllers by function
-8. check error handling
+4. validation checks on request body & use validation/helper file
+<!-- 5. constant files (status codes) -->
+6. split controllers and models by function
+7. check error handling
+8. hosting
+9. read all code for consistency, & naming of files
