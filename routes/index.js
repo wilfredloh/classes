@@ -11,6 +11,8 @@ router.post('/register', controllers.registerStudents)
 router.post('/suspend', controllers.suspendStudent)
 router.post('/retrievefornotifications', controllers.notifyStudents)
 
+router.post('/refresh', controllers.refresh)
+
 router.get('/', controllers.showHome)
 
 module.exports = router;

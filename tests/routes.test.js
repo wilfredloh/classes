@@ -1,8 +1,15 @@
 const request = require('supertest')
 const app = require('../index')
 
+const connection = require('../helpers/connection');
+const query = require('../helpers/query');
+const seed = require('../data.js')
+
 afterAll(async done => {
-    // globalRedisClient.unref();
+    const conn = await connection()
+    seed.forEach( async x => {
+        await query(conn, x)
+    })
     done();
  });
 
@@ -48,8 +55,8 @@ describe('Common Student endpoint', () => {
         const res = await request(app).get(apiString)
         expect(res.statusCode).toEqual(200)
         expect(res.body).toHaveProperty('commonStudents')
-        const luke = res.body.commonStudents[0]
-        expect(luke.email).toEqual('candice@student.com')
+        const candice = res.body.commonStudents[0]
+        expect(candice.email).toEqual('candice@student.com')
     });
     
     it('should fetch all common students under Wong, Alex AND JAMES', async () => {
@@ -72,8 +79,7 @@ describe('Suspend Student endpoint', () => {
           .send({
             student: 2,
           });
-        // expect(res.statusCode).toEqual(204);
-        expect(res.body.response).toEqual('student suspended!');
+        expect(res.statusCode).toEqual(204);
       });
 })
 
@@ -126,8 +132,7 @@ describe('Register Student endpoint', () => {
             teacher: 1,
             student: 5,
           });
-        // expect(res.statusCode).toEqual(204);
-        expect(res.body.response).toEqual('student(s) added to teacher!');
+        expect(res.statusCode).toEqual(204);
       });
     
       it('should add student 3 & 4 to teacher 2', async () => {
@@ -137,7 +142,6 @@ describe('Register Student endpoint', () => {
             teacher: 2,
             student: [3,4],
           });
-        // expect(res.statusCode).toEqual(204);
-        expect(res.body.response).toEqual('student(s) added to teacher!');
+        expect(res.statusCode).toEqual(204);
       });
 })

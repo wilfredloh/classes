@@ -2,20 +2,20 @@ drop database classes;
 create database classes;
 use classes;
 
-CREATE TABLE teachers (
+CREATE TABLE IF NOT EXISTS teachers (
     id int NOT NULL AUTO_INCREMENT,
-    email varchar(50) NOT NULL,
+    email varchar(255) NOT NULL,
     PRIMARY KEY (id)
 );
 
-CREATE TABLE students (
+CREATE TABLE IF NOT EXISTS students (
     id int NOT NULL AUTO_INCREMENT,
-    email varchar(50) NOT NULL,
+    email varchar(255) NOT NULL,
     suspended boolean NOT NULL,
     PRIMARY KEY (id)
 );
 
-CREATE TABLE registrations (
+CREATE TABLE IF NOT EXISTS registrations (
     id int NOT NULL AUTO_INCREMENT,
     teacher_id INT NOT NULL,
     student_id INT NOT NULL,
