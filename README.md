@@ -1,7 +1,7 @@
 
 ## About
 This repo contains a set of API endpoints for teachers to perform administrative tasks for their classes.
-#### Hosted API: [Link](https://shielded-everglades-15735.herokuapp.com/)
+#### Hosted API: [Link](https://shielded-everglades-15735.herokuapp.com/api)
 #### Postman Collection: [Link](https://www.getpostman.com/collections/7e13a3d4ae0e3be52d75)
 
 ## Technologies
