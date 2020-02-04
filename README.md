@@ -32,14 +32,14 @@ To access MySQL data from the terminal
 ```
 mysql -uroot -p
 ```
-Configure details in db > dbconfig.js 
-Seed data in db > data.sql
+Configure details in db > dbconfig.js \n
+Seed data in db > data.sql\n
 To start server, run: 
 ```
 npm start
 ```
-API endpoints listed in routes > index.js
-To view and manipulate data from the browser, go to: http://localhost:3000/api 
+API endpoints listed in routes > index.js\n
+To view and manipulate data from the browser, start server and go to: http://localhost:3000/api 
 
 For unit tests, run: 
 ```
